@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Shield, FileText, Lock, Unlock, Users, ChevronDown, ChevronUp, AlertOctagon } from 'lucide-react';
-import { playTactileClick } from '../utils/audio';
+import { Lock, Unlock, Users, ChevronDown, ChevronUp } from 'lucide-react';
 
 const COMMITTEES = [
   {
@@ -9,10 +8,10 @@ const COMMITTEES = [
     name: 'United Nations Security Council',
     agenda: 'Regulating Autonomous Weapon Systems (LAWS) and AI in Modern Asymmetric Warfare',
     format: 'Double Delegation',
-    status: 'CLASSIFIED HIGH COMMAND',
+    status: 'HIGH COMMAND',
     sealText: 'VETO POWERS ACTIVE',
     clauseTitle: 'CLAUSE 14-B: SWARM AUTONOMY LIMITS',
-    clauseContent: 'Mandatory fail-safe kill switches and decentralized human-in-the-loop verification required for all kinetic aerial autonomous platforms operating within non-combatant maritime sectors.',
+    clauseContent: 'Mandatory kill-switch protocols and human-in-the-loop verification required for kinetic aerial autonomous platforms in non-combatant sectors.',
   },
   {
     id: 'UNHRC',
@@ -20,32 +19,32 @@ const COMMITTEES = [
     name: 'United Nations Human Rights Council',
     agenda: 'Data Colonization, Digital Privacy, and State Surveillance in Developing Economies',
     format: 'Single Delegation',
-    status: 'OPEN HEARINGS LIVE',
+    status: 'HEARINGS LIVE',
     sealText: 'PRIVACY MANDATE',
-    clauseTitle: 'CLAUSE 08-A: SOVEREIGN BIOMETRIC EMBARGO',
-    clauseContent: 'Prohibiting transnational corporate extraction of biometric metadata without explicit bilateral civilian parliament consent and verifiable local data sanctuary hosting.',
+    clauseTitle: 'CLAUSE 08-A: BIOMETRIC DATA EMBARGO',
+    clauseContent: 'Prohibiting corporate extraction of citizen biometric metadata without explicit bilateral civilian parliament authorization.',
   },
   {
     id: 'AIPPM',
     code: 'DOSSIER // AIPPM-2026',
     name: 'All India Political Parties Meet',
     agenda: 'Deliberation on Agricultural Tech-Infrastructure, Digital Land Records, and Rural Economic Autonomy',
-    format: 'Single Delegation (Bilingual / Hindi-English)',
-    status: 'HIGH-TEMPO DEBATE',
+    format: 'Single Delegation (Bilingual)',
+    status: 'PARLIAMENTARY',
     sealText: 'BILINGUAL COMMITTEE',
     clauseTitle: 'CLAUSE 03-C: DIGITAL LAND TITLING BILL',
-    clauseContent: 'Establishing decentralized village panchayat digital title verification nodes to prevent land record tampering and guarantee algorithmic agricultural credit access.',
+    clauseContent: 'Establishing village panchayat digital title verification nodes to prevent land record tampering and ensure credit access.',
   },
   {
     id: 'JCC',
     code: 'DOSSIER // JCC-1999',
     name: 'Joint Crisis Committee: 1999 Kargil Backchannel',
-    agenda: 'Declassified High-Command Intelligence and Continuous Rapid Crisis Updates',
+    agenda: 'Declassified High-Command Intelligence and Continuous Crisis Updates',
     format: 'Fast-Paced Single Delegation',
-    status: 'SECRETARIAT DIRECTIVE',
+    status: 'CRISIS DIRECTIVE',
     sealText: 'CRISIS CABINET',
     clauseTitle: 'INTEL BRIEF 01: HIGH-ALTITUDE LOGISTICS',
-    clauseContent: 'Unconfirmed movement detected along northern mountain passes. Cabinet must coordinate immediate diplomatic backchannel communications with international observers within 20 minutes of crisis directive.',
+    clauseContent: 'High-altitude communications interrupted along Sector 4. Crisis cabinet must coordinate rapid backchannel response within 20 minutes.',
   }
 ];
 
@@ -53,7 +52,6 @@ export default function CommitteeDossiers({ onSelectCommittee }) {
   const [expandedCard, setExpandedCard] = useState(null);
 
   const toggleExpand = (id) => {
-    playTactileClick();
     if (expandedCard === id) {
       setExpandedCard(null);
     } else {
@@ -62,53 +60,48 @@ export default function CommitteeDossiers({ onSelectCommittee }) {
   };
 
   return (
-    <section id="committees" className="w-full px-4 lg:px-8 py-16 bg-[#FAF6F0] border-b-2 border-[#121316] relative">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+    <section id="committees" className="w-full px-6 lg:px-12 py-20 bg-[#FAF6F0] border-b-2 border-[#121316]">
+      <div className="max-w-7xl mx-auto flex flex-col gap-12">
         {/* Section Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-[#121316] pb-4">
           <div>
-            <span className="font-mono text-xs text-[#FF4D4D] uppercase font-bold tracking-widest block">
+            <span className="font-mono text-xs text-[#FF4D4D] uppercase font-bold tracking-widest block mb-1">
               [02] AGENDAS & COUNCILS // CLASSIFIED DECK
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl uppercase text-[#1B2A4A] tracking-tight font-extrabold">
-              COMMITTEE DOSSIERS & AGENDAS
+              COMMITTEE DOSSIERS
             </h2>
           </div>
-          <div className="font-mono text-xs text-gray-700 bg-white border border-[#121316] px-3 py-1 font-bold">
-            CLICK CARD TO TOGGLE REDACTED INTEL
+          <div className="font-mono text-xs text-gray-700 bg-white border border-[#121316] px-3.5 py-1 font-bold">
+            INSPECT CLASSIFIED INTEL
           </div>
         </div>
 
-        {/* 4 Committee Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {COMMITTEES.map((item, idx) => {
+        {/* 4 Committee Cards Grid (Cleaned up & decluttered) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          {COMMITTEES.map((item) => {
             const isExpanded = expandedCard === item.id;
             return (
               <div
                 key={item.id}
-                className={`bg-white border-3 border-[#121316] flex flex-col justify-between p-6 relative transition-all ${
-                  idx % 2 === 0 ? 'rotate-[-0.5deg] shadow-riso-indigo' : 'rotate-[0.5deg] shadow-riso-coral'
-                } hover:rotate-0`}
+                className="bg-white border-3 border-[#121316] flex flex-col justify-between p-6 lg:p-8 shadow-riso-indigo relative hover:shadow-riso-indigo-lg transition-all"
               >
-                {/* Washi Tape Corner Accent */}
-                <div className={`absolute -top-3 ${idx % 2 === 0 ? 'left-6 rotate-[-3deg]' : 'right-6 rotate-[2deg]'} w-28 h-5 bg-[#F6E05E]/90 z-10 pointer-events-none border-t border-b border-black/10`}></div>
-
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-4">
                   {/* Top Bar */}
-                  <div className="flex items-center justify-between border-b-2 border-[#121316] pb-2 font-mono text-xs">
+                  <div className="flex items-center justify-between border-b-2 border-[#121316] pb-2.5 font-mono text-xs">
                     <span className="text-[#FF4D4D] font-bold">{item.code}</span>
-                    <span className="border border-dashed border-[#1B2A4A] text-[#1B2A4A] px-1.5 py-0.5 font-bold text-[10px] uppercase">
+                    <span className="border border-dashed border-[#1B2A4A] text-[#1B2A4A] px-2 py-0.5 font-bold text-[10px] uppercase">
                       {item.status}
                     </span>
                   </div>
 
-                  {/* Council Title & Format */}
+                  {/* Title & Format */}
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <h3 className="font-heading font-extrabold text-2xl uppercase text-[#1B2A4A]">
                         {item.name}
                       </h3>
-                      <div className="flex items-center gap-2 mt-1">
+                      <div className="flex items-center gap-2 mt-1.5">
                         <span className="bg-[#1B2A4A] text-[#F4EFE6] px-2 py-0.5 font-mono text-[11px] font-bold uppercase">
                           {item.id}
                         </span>
@@ -118,24 +111,19 @@ export default function CommitteeDossiers({ onSelectCommittee }) {
                         </span>
                       </div>
                     </div>
-
-                    {/* Stamped Seal */}
-                    <div className="stamp-seal text-[10px] px-2 py-0.5 shrink-0 hidden sm:block">
-                      {item.sealText}
-                    </div>
                   </div>
 
-                  {/* Agenda Title */}
-                  <div className="p-3 bg-[#F4EFE6] border-2 border-[#121316] my-1">
+                  {/* Agenda Title (Sharp 1-2 sentence focus) */}
+                  <div className="p-4 bg-[#F4EFE6] border-2 border-[#121316]">
                     <span className="font-mono text-[10px] text-[#FF4D4D] font-bold uppercase block mb-1">
-                      OFFICIAL AGENDA ITEM:
+                      AGENDA ITEM:
                     </span>
                     <p className="font-sans text-sm md:text-base font-bold text-[#121316] leading-snug">
                       "{item.agenda}"
                     </p>
                   </div>
 
-                  {/* Toggleable Redacted Document Clause */}
+                  {/* Toggleable Document Clause */}
                   <div
                     onClick={() => toggleExpand(item.id)}
                     className="bg-white border-2 border-[#121316] p-3 cursor-pointer hover:bg-[#F6E05E]/30 transition-colors"
@@ -151,26 +139,22 @@ export default function CommitteeDossiers({ onSelectCommittee }) {
                     </div>
 
                     {isExpanded && (
-                      <div className="mt-3 pt-2 border-t border-[#121316] font-mono text-xs text-gray-800 space-y-2">
-                        <p className="leading-relaxed bg-[#F4EFE6] p-2 border border-gray-300">
-                          <span className="font-bold text-[#FF4D4D]">DECLASSIFIED TEXT: </span>
+                      <div className="mt-3 pt-2.5 border-t border-[#121316] font-mono text-xs text-gray-800 space-y-2">
+                        <p className="leading-relaxed bg-[#F4EFE6] p-2.5 border border-gray-300">
+                          <span className="font-bold text-[#FF4D4D]">INTEL: </span>
                           {item.clauseContent}
                         </p>
-                        <div className="text-[10px] text-gray-600 font-bold uppercase flex justify-between">
-                          <span>SECRETARIAT VERIFIED</span>
-                          <span className="text-[#FF4D4D]">● 100% AUDITED</span>
-                        </div>
                       </div>
                     )}
                   </div>
                 </div>
 
                 {/* Footer Action */}
-                <div className="mt-4 pt-3 border-t-2 border-[#121316] flex items-center justify-between font-mono text-xs">
-                  <span className="text-gray-600 font-bold">DELEGATION ALLOCATION:</span>
+                <div className="mt-6 pt-4 border-t-2 border-[#121316] flex items-center justify-between font-mono text-xs">
+                  <span className="text-gray-600 font-bold">PORTFOLIOS:</span>
                   <button
                     onClick={() => onSelectCommittee(item.id)}
-                    className="bg-[#FF4D4D] text-[#F4EFE6] px-3 py-1 font-bold uppercase border border-[#121316] shadow-sm hover:bg-[#1B2A4A] transition-colors"
+                    className="bg-[#FF4D4D] text-[#F4EFE6] px-3.5 py-1.5 font-bold uppercase border border-[#121316] shadow-sm hover:bg-[#1B2A4A] transition-colors"
                   >
                     SELECT {item.id} PORTFOLIO →
                   </button>

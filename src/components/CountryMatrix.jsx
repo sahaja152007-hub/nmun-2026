@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, Radio, CheckCircle, Clock, AlertTriangle, ArrowUpRight, Terminal } from 'lucide-react';
-import { playTactileClick, playTeletypeBeep } from '../utils/audio';
+import { Search, Terminal, ArrowUpRight, Clock, Radio } from 'lucide-react';
 
 const MATRIX_DATA = [
   // UNSC
@@ -39,24 +38,24 @@ const MATRIX_DATA = [
 
 const CRISIS_LOGS = {
   UNSC: [
-    { time: '10:42 IST', text: 'FLASH INTEL: Unidentified autonomous swarm drones detected over contested maritime corridor. Motion for emergency directive table.' },
-    { time: '11:15 IST', text: 'VETO ALERT: Resolution on LAWS mandatory kill-switch protocol faces potential permanent member stalemate.' },
-    { time: '12:04 IST', text: 'UPDATE: Joint cybersecurity coalition submits draft amendment 4.1 on satellite tracking transparency.' },
+    { time: '10:42 IST', text: 'FLASH INTEL: Autonomous swarm drones detected over contested maritime corridor. Motion for emergency directive tabled.' },
+    { time: '11:15 IST', text: 'VETO ALERT: Resolution on LAWS mandatory kill-switch protocol faces potential stalemate.' },
+    { time: '12:04 IST', text: 'UPDATE: Joint cybersecurity coalition submits draft amendment 4.1 on satellite tracking.' },
   ],
   UNHRC: [
-    { time: '09:30 IST', text: 'REPORT: Critical biometric database leak exposes 14 million citizens in East Africa. Special Rapporteur demands inquiry.' },
+    { time: '09:30 IST', text: 'REPORT: Critical biometric database leak exposes 14 million citizens. Special Rapporteur demands inquiry.' },
     { time: '10:55 IST', text: 'SUBMISSION: Non-Governmental Coalition tables working paper on sovereign data localization rights.' },
-    { time: '11:40 IST', text: 'CAUCUS: Delegate of Germany calls unmoderated caucus on state-sponsored surveillance software embargo.' },
+    { time: '11:40 IST', text: 'CAUCUS: Delegate of Germany calls unmoderated caucus on state surveillance software embargo.' },
   ],
   AIPPM: [
-    { time: '10:00 IST', text: 'PRESS RELEASE: Opposition delegates challenge digital agricultural registry bill in heated moderated caucus.' },
-    { time: '11:20 IST', text: 'BREAKING: Farmer union representatives submit joint memorandum regarding satellite crop yield auditing.' },
+    { time: '10:00 IST', text: 'PRESS RELEASE: Opposition delegates challenge digital agricultural registry bill in moderated caucus.' },
+    { time: '11:20 IST', text: 'BREAKING: Farmer union representatives submit joint memorandum regarding satellite crop auditing.' },
     { time: '12:10 IST', text: 'COMMUNIQUE: Cross-party working group formed to draft rural economic autonomy framework.' },
   ],
   JCC: [
-    { time: '02:14 IST', text: 'CLASSIFIED // KARGIL BACKCHANNEL: High-altitude outpost communications interrupted along Sector 4.' },
-    { time: '03:45 IST', text: 'INTEL FEED: Emergency directive issued by Cabinet Committee on Security. Diplomatic channel established in Islamabad.' },
-    { time: '04:30 IST', text: 'FLASH DIRECTIVE: Intelligence report uncovers secondary escalation line. Cabinet must respond within 15 minutes.' },
+    { time: '02:14 IST', text: 'CLASSIFIED // KARGIL BACKCHANNEL: Communications interrupted along Sector 4 mountain passes.' },
+    { time: '03:45 IST', text: 'INTEL FEED: Emergency directive issued by Cabinet Committee on Security.' },
+    { time: '04:30 IST', text: 'FLASH DIRECTIVE: Intelligence report uncovers secondary escalation line. Response required within 15 minutes.' },
   ]
 };
 
@@ -75,34 +74,29 @@ export default function CountryMatrix({ onSelectPortfolio }) {
     return matchesSearch && matchesCommittee && matchesBloc;
   });
 
-  const handleChannelSwitch = (channel) => {
-    playTeletypeBeep();
-    setActiveChannel(channel);
-  };
-
   return (
-    <section id="matrix" className="w-full px-4 lg:px-8 py-16 bg-[#F4EFE6] border-b-2 border-[#121316] relative">
-      <div className="max-w-7xl mx-auto flex flex-col gap-10">
+    <section id="matrix" className="w-full px-6 lg:px-12 py-20 bg-[#F4EFE6] border-b-2 border-[#121316]">
+      <div className="max-w-7xl mx-auto flex flex-col gap-12">
         {/* Section Header */}
         <div className="flex flex-wrap items-end justify-between gap-4 border-b-2 border-[#121316] pb-4">
           <div>
-            <span className="font-mono text-xs text-[#FF4D4D] uppercase font-bold tracking-widest block">
+            <span className="font-mono text-xs text-[#FF4D4D] uppercase font-bold tracking-widest block mb-1">
               [03] ALLOCATION & TELETYPE // LIVE MATRIX
             </span>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl uppercase text-[#1B2A4A] tracking-tight font-extrabold">
               COUNTRY MATRIX & CRISIS ROOM TRACKER
             </h2>
           </div>
-          <div className="font-mono text-xs text-gray-700 bg-white border border-[#121316] px-3 py-1 font-bold">
-            SEARCH & SELECT PORTFOLIO TO APPLY
+          <div className="font-mono text-xs text-gray-700 bg-white border border-[#121316] px-3.5 py-1 font-bold">
+            SEARCH & SELECT PORTFOLIO
           </div>
         </div>
 
-        {/* Feature A & Feature B Container */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Feature A & Feature B Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Feature A: Live Searchable Country Matrix */}
           <div className="lg:col-span-7 flex flex-col gap-4">
-            <div className="bg-white border-3 border-[#121316] p-5 shadow-riso-indigo">
+            <div className="bg-white border-3 border-[#121316] p-6 shadow-riso-indigo">
               <div className="flex items-center justify-between border-b-2 border-[#121316] pb-3 mb-4">
                 <span className="font-heading font-extrabold text-lg text-[#1B2A4A] uppercase flex items-center gap-2">
                   <Search className="w-5 h-5 text-[#FF4D4D]" />
@@ -115,25 +109,20 @@ export default function CountryMatrix({ onSelectPortfolio }) {
 
               {/* Filters & Search Controls */}
               <div className="flex flex-col sm:flex-row gap-3 mb-4 font-mono text-xs">
-                {/* Search Bar */}
                 <div className="relative flex-1">
                   <input
                     type="text"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    placeholder="Search country or delegate name..."
+                    placeholder="Search country or delegate..."
                     className="w-full bg-[#F4EFE6] border-2 border-[#121316] p-2 pl-8 font-mono text-xs text-[#121316] focus:outline-none focus:border-[#FF4D4D]"
                   />
                   <Search className="w-4 h-4 text-gray-500 absolute left-2.5 top-2.5" />
                 </div>
 
-                {/* Committee Select */}
                 <select
                   value={selectedCommittee}
-                  onChange={(e) => {
-                    playTactileClick();
-                    setSelectedCommittee(e.target.value);
-                  }}
+                  onChange={(e) => setSelectedCommittee(e.target.value)}
                   className="bg-[#F4EFE6] border-2 border-[#121316] p-2 font-mono text-xs font-bold text-[#1B2A4A] focus:outline-none focus:border-[#FF4D4D]"
                 >
                   <option value="ALL">ALL COMMITTEES</option>
@@ -143,13 +132,9 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                   <option value="JCC">JCC</option>
                 </select>
 
-                {/* Bloc Select */}
                 <select
                   value={selectedBloc}
-                  onChange={(e) => {
-                    playTactileClick();
-                    setSelectedBloc(e.target.value);
-                  }}
+                  onChange={(e) => setSelectedBloc(e.target.value)}
                   className="bg-[#F4EFE6] border-2 border-[#121316] p-2 font-mono text-xs font-bold text-[#1B2A4A] focus:outline-none focus:border-[#FF4D4D]"
                 >
                   <option value="ALL">ALL BLOCS</option>
@@ -181,7 +166,6 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                           key={row.id}
                           onClick={() => {
                             if (row.status !== 'RESERVED') {
-                              playTactileClick();
                               onSelectPortfolio(row.committee, row.country);
                             }
                           }}
@@ -225,7 +209,7 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                     ) : (
                       <tr>
                         <td colSpan="4" className="p-4 text-center text-gray-500 font-mono">
-                          No matching portfolios found. Try adjusting search filters.
+                          No matching portfolios found.
                         </td>
                       </tr>
                     )}
@@ -234,21 +218,21 @@ export default function CountryMatrix({ onSelectPortfolio }) {
               </div>
 
               <div className="mt-3 text-[11px] font-mono text-gray-600 flex items-center justify-between">
-                <span>💡 TIP: Click any OPEN/VACANT portfolio to auto-populate registration!</span>
-                <span className="font-bold text-[#FF4D4D]">LIVE UPDATED</span>
+                <span>💡 Click any OPEN/VACANT portfolio to apply!</span>
+                <span className="font-bold text-[#FF4D4D]">LIVE GRID</span>
               </div>
             </div>
           </div>
 
           {/* Feature B: Crisis Wire Teletype Simulator */}
           <div className="lg:col-span-5 flex flex-col gap-4">
-            <div className="bg-[#121316] text-[#F4EFE6] border-3 border-[#121316] p-5 shadow-riso-coral flex flex-col h-full justify-between">
+            <div className="bg-[#121316] text-[#F4EFE6] border-3 border-[#121316] p-6 shadow-riso-coral flex flex-col h-full justify-between">
               <div>
                 <div className="flex items-center justify-between border-b border-gray-700 pb-3 mb-4">
                   <div className="flex items-center gap-2">
                     <Terminal className="w-5 h-5 text-[#F6E05E]" />
                     <span className="font-heading font-extrabold text-base text-[#F4EFE6] uppercase">
-                      CRISIS WIRE TELETYPE SIMULATOR
+                      CRISIS WIRE TELETYPE
                     </span>
                   </div>
                   <span className="w-2.5 h-2.5 bg-[#FF4D4D] rounded-full animate-ping"></span>
@@ -259,14 +243,14 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                   {Object.keys(CRISIS_LOGS).map((channel) => (
                     <button
                       key={channel}
-                      onClick={() => handleChannelSwitch(channel)}
+                      onClick={() => setActiveChannel(channel)}
                       className={`px-2.5 py-1 font-bold uppercase transition-all ${
                         activeChannel === channel
                           ? 'bg-[#FF4D4D] text-[#F4EFE6] border border-[#FF4D4D]'
                           : 'bg-[#1B2A4A] text-gray-300 hover:bg-gray-700 border border-gray-700'
                       }`}
                     >
-                      {channel} WIRE
+                      {channel}
                     </button>
                   ))}
                 </div>
@@ -274,8 +258,8 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                 {/* Teletype Log Screen */}
                 <div className="bg-black/80 border border-gray-700 p-4 font-mono text-xs text-[#F6E05E] min-h-[220px] space-y-3">
                   <div className="text-gray-500 border-b border-gray-800 pb-1 flex justify-between">
-                    <span>FEED: {activeChannel} DIRECTIVE CHANNEL</span>
-                    <span className="text-[#FF4D4D] animate-pulse">LIVE TRANSMISSION</span>
+                    <span>FEED: {activeChannel} CHANNEL</span>
+                    <span className="text-[#FF4D4D]">LIVE</span>
                   </div>
 
                   {CRISIS_LOGS[activeChannel].map((log, i) => (
@@ -284,7 +268,7 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                         <Clock className="w-3 h-3 text-[#FF4D4D]" />
                         <span>[{log.time}]</span>
                       </div>
-                      <p className="text-[#F4EFE6] pl-4 border-l-2 border-[#FF4D4D] leading-relaxed">
+                      <p className="text-[#F4EFE6] pl-3 border-l-2 border-[#FF4D4D] leading-relaxed">
                         {log.text}
                       </p>
                     </div>
@@ -298,7 +282,7 @@ export default function CountryMatrix({ onSelectPortfolio }) {
                   <Radio className="w-3 h-3 text-[#FF4D4D]" /> FREQ: 142.825 MHz
                 </span>
                 <span className="bg-[#1B2A4A] text-[#F6E05E] px-2 py-0.5 font-bold">
-                  UNMODERATED SIMULATOR
+                  UNMODERATED
                 </span>
               </div>
             </div>

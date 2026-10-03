@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Check, Award, Shield, User, Building, Landmark, Globe, QrCode } from 'lucide-react';
-import { playTactileClick, playStampSound } from '../utils/audio';
+import { X, User, Building, Landmark, Globe, QrCode } from 'lucide-react';
 
 export default function DelegateModal({ isOpen, onClose, defaultCommittee = '', defaultCountry = '' }) {
   const [formData, setFormData] = useState({
@@ -33,12 +32,10 @@ export default function DelegateModal({ isOpen, onClose, defaultCommittee = '', 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    playStampSound();
     setSubmitted(true);
   };
 
   const handleReset = () => {
-    playTactileClick();
     setSubmitted(false);
     onClose();
   };
@@ -53,10 +50,7 @@ export default function DelegateModal({ isOpen, onClose, defaultCommittee = '', 
             <span>DELEGATE ACCREDITATION DOCKET // NMUN 2026 SHIRPUR</span>
           </div>
           <button
-            onClick={() => {
-              playTactileClick();
-              onClose();
-            }}
+            onClick={onClose}
             className="p-1 bg-[#FF4D4D] text-[#F4EFE6] hover:bg-[#1B2A4A] border border-[#121316] font-bold"
           >
             <X className="w-5 h-5" />
@@ -198,10 +192,7 @@ export default function DelegateModal({ isOpen, onClose, defaultCommittee = '', 
 
             {/* Live Summary Placard Preview Column */}
             <div className="lg:col-span-5 flex flex-col items-center justify-center">
-              <div className="w-full bg-white border-3 border-[#121316] p-6 shadow-riso-coral rotate-[1deg] relative font-mono text-xs">
-                {/* Simulated Washi Tape */}
-                <div className="absolute -top-3 left-8 w-24 h-4 bg-[#F6E05E]/90 rotate-[-2deg]"></div>
-
+              <div className="w-full bg-white border-3 border-[#121316] p-6 shadow-riso-coral font-mono text-xs">
                 {/* Badge Header */}
                 <div className="border-b-2 border-[#121316] pb-3 mb-4 text-center">
                   <div className="font-heading font-extrabold text-lg uppercase text-[#1B2A4A]">
